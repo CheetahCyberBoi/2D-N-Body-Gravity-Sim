@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://b0ocwv70k75rk"]
+[gd_scene load_steps=3 format=3 uid="uid://b0ocwv70k75rk"]
+
+[ext_resource type="Script" uid="uid://dehhktx37dofg" path="res://compute_manager.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://ckaqb8e0xi33l" path="res://planet.tscn" id="2_h2yge"]
 
 [node name="Main" type="Node"]
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="ComputeManager" type="Node" parent="."]
+script = ExtResource("1_0xm2m")
+planet_scene = ExtResource("2_h2yge")

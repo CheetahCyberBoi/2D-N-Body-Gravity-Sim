@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="2D Gravity Sim"
+run/main_scene="uid://b0ocwv70k75rk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
