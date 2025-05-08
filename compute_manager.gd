@@ -1,5 +1,8 @@
 extends Node
 
+# TODO: Add parameters buffer with things like G constant, number of bodies, and other important parameters.
+# TODO: Make velocities influence the color of bodies (later)
+
 @export var min_x_from_center = 0
 @export var max_x_from_center = 500
 @export var min_y_from_center = 0
@@ -87,11 +90,10 @@ func run_compute():
 	# Update velocities packed buffer for the compute shader to execute on.
 	var velocities_packed_bytes = PackedVector2Array(velocities).to_byte_array()
 	rendering_device.buffer_update(velocity_buffer, 0, velocities_packed_bytes.size(), velocities_packed_bytes)
-	print("Velocity array pre_compute: %s" % str(velocities_packed_bytes))
+	print("Velocity array pre_compute: %s" % str(velocities))
 	# Prepare compute list
-	var elements = velocities.size() / 2 # since it is vectorized floats
 	var local_size = 8
-	var groups_x = int(ceil(float(elements) / float(local_size)))
+	var groups_x = int(ceil(float(velocities.size()) / float(local_size))) # figure out how many groups we need based on the number of velocities/thread
 	var compute_list := rendering_device.compute_list_begin()
 	rendering_device.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	rendering_device.compute_list_bind_uniform_set(compute_list, buffer_set, 0)
